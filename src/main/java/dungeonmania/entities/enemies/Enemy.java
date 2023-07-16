@@ -10,6 +10,7 @@ import dungeonmania.util.Position;
 
 public abstract class Enemy extends Entity implements Battleable {
     private BattleStatistics battleStatistics;
+    private MoveStrategy strategy;
 
     public Enemy(Position position, double health, double attack) {
         super(position.asLayer(Entity.CHARACTER_LAYER));
@@ -47,4 +48,12 @@ public abstract class Enemy extends Entity implements Battleable {
     }
 
     public abstract void move(Game game);
+
+    public MoveStrategy getStrategy() {
+        return strategy;
+    }
+
+    public void setStrategy(MoveStrategy strategy) {
+        this.strategy = strategy;
+    }
 }

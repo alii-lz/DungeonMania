@@ -3,7 +3,6 @@ package dungeonmania.entities.enemies;
 import java.util.List;
 
 import dungeonmania.Game;
-import dungeonmania.entities.Boulder;
 import dungeonmania.entities.Entity;
 import dungeonmania.util.Position;
 
@@ -29,7 +28,7 @@ public class Spider extends Enemy {
         forward = true;
     };
 
-    private void updateNextPosition() {
+    public void updateNextPosition() {
         if (forward) {
             nextPositionElement++;
             if (nextPositionElement == 8) {
@@ -45,19 +44,43 @@ public class Spider extends Enemy {
 
     @Override
     public void move(Game game) {
-        Position nextPos = movementTrajectory.get(nextPositionElement);
-        List<Entity> entities = game.getMap().getEntities(nextPos);
-        if (entities != null && entities.size() > 0 && entities.stream().anyMatch(e -> e instanceof Boulder)) {
-            forward = !forward;
-            updateNextPosition();
-            updateNextPosition();
-        }
-        nextPos = movementTrajectory.get(nextPositionElement);
-        entities = game.getMap().getEntities(nextPos);
-        if (entities == null || entities.size() == 0
-                || entities.stream().allMatch(e -> e.canMoveOnto(game.getMap(), this))) {
-            game.getMap().moveTo(this, nextPos);
-            updateNextPosition();
-        }
+        setStrategy(new SpiderMove());
+        getStrategy().perform(game, this);
+    }
+
+    public List<Position> getMovementTrajectory() {
+        return movementTrajectory;
+    }
+
+    public void setMovementTrajectory(List<Position> movementTrajectory) {
+        this.movementTrajectory = movementTrajectory;
+    }
+
+    public int getNextPositionElement() {
+        return nextPositionElement;
+    }
+
+    public void setNextPositionElement(int nextPositionElement) {
+        this.nextPositionElement = nextPositionElement;
+    }
+
+    public boolean isForward() {
+        return forward;
+    }
+
+    public void setForward(boolean forward) {
+        this.forward = forward;
+    }
+
+    public static int getDefaultSpawnRate() {
+        return DEFAULT_SPAWN_RATE;
+    }
+
+    public static double getDefaultAttack() {
+        return DEFAULT_ATTACK;
+    }
+
+    public static double getDefaultHealth() {
+        return DEFAULT_HEALTH;
     }
 }

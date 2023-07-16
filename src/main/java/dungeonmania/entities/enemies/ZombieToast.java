@@ -24,33 +24,7 @@ public class ZombieToast extends Enemy {
         Position nextPos;
         GameMap map = game.getMap();
         if (map.getPlayer().getEffectivePotion() instanceof InvincibilityPotion) {
-            Position plrDiff = Position.calculatePositionBetween(map.getPlayer().getPosition(), getPosition());
-
-            Position moveX = (plrDiff.getX() >= 0) ? Position.translateBy(getPosition(), Direction.RIGHT)
-                    : Position.translateBy(getPosition(), Direction.LEFT);
-            Position moveY = (plrDiff.getY() >= 0) ? Position.translateBy(getPosition(), Direction.UP)
-                    : Position.translateBy(getPosition(), Direction.DOWN);
-            Position offset = getPosition();
-            if (plrDiff.getY() == 0 && map.canMoveTo(this, moveX))
-                offset = moveX;
-            else if (plrDiff.getX() == 0 && map.canMoveTo(this, moveY))
-                offset = moveY;
-            else if (Math.abs(plrDiff.getX()) >= Math.abs(plrDiff.getY())) {
-                if (map.canMoveTo(this, moveX))
-                    offset = moveX;
-                else if (map.canMoveTo(this, moveY))
-                    offset = moveY;
-                else
-                    offset = getPosition();
-            } else {
-                if (map.canMoveTo(this, moveY))
-                    offset = moveY;
-                else if (map.canMoveTo(this, moveX))
-                    offset = moveX;
-                else
-                    offset = getPosition();
-            }
-            nextPos = offset;
+            setStrategy(new InvinciblityStrategy());
         } else {
             List<Position> pos = getPosition().getCardinallyAdjacentPositions();
             pos = pos.stream().filter(p -> map.canMoveTo(this, p)).collect(Collectors.toList());
@@ -60,7 +34,7 @@ public class ZombieToast extends Enemy {
                 nextPos = pos.get(randGen.nextInt(pos.size()));
             }
         }
-        game.getMap().moveTo(this, nextPos);
+        getStrategy().perform(game, this);
 
     }
 
