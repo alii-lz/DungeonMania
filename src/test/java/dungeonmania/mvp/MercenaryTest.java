@@ -181,6 +181,7 @@ public class MercenaryTest {
 
         // pick up treasure
         res = dmc.tick(Direction.LEFT);
+
         assertEquals(1, TestUtils.getInventory(res, "treasure").size());
         assertEquals(new Position(1, 1), getPlayerPos(res));
         assertEquals(new Position(4, 1), getMercPos(res));
