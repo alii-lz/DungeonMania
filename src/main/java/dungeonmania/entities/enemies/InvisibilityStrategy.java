@@ -11,7 +11,7 @@ import dungeonmania.util.Position;
 
 public class InvisibilityStrategy implements MoveStrategy {
     @Override
-    public void perform(Game game, Enemy enemy) {
+    public void performMovement(Game game, Enemy enemy) {
         Position nextPos;
         Player player = game.getPlayer();
         GameMap map = game.getMap();
@@ -20,12 +20,10 @@ public class InvisibilityStrategy implements MoveStrategy {
         List<Position> pos = player.getPosition().getCardinallyAdjacentPositions();
         pos = pos.stream().filter(p -> map.canMoveTo(enemy, p)).collect(Collectors.toList());
         if (pos.size() == 0) {
-
             nextPos = player.getPosition();
             map.moveTo(enemy, nextPos);
 
         } else {
-
             nextPos = pos.get(randGen.nextInt(pos.size()));
             map.moveTo(enemy, nextPos);
         }

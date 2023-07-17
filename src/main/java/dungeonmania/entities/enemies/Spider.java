@@ -44,8 +44,8 @@ public class Spider extends Enemy {
 
     @Override
     public void move(Game game) {
-        setStrategy(new SpiderMove());
-        getStrategy().perform(game, this);
+        setStrategy(new SpiderStrategy());
+        getStrategy().performMovement(game, this);
     }
 
     public List<Position> getMovementTrajectory() {

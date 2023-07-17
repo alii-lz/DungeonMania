@@ -1,9 +1,5 @@
 package dungeonmania.entities.enemies;
 
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-
 import dungeonmania.Game;
 import dungeonmania.battles.BattleStatistics;
 import dungeonmania.entities.Entity;
@@ -13,7 +9,6 @@ import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.entities.collectables.potions.InvincibilityPotion;
 import dungeonmania.entities.collectables.potions.InvisibilityPotion;
 import dungeonmania.map.GameMap;
-import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 public class Mercenary extends Enemy implements Interactable {
@@ -82,25 +77,29 @@ public class Mercenary extends Enemy implements Interactable {
         Position nextPos;
         GameMap map = game.getMap();
         Player player = game.getPlayer();
+
         if (allied) {
             nextPos = isAdjacentToPlayer ? player.getPreviousDistinctPosition()
                     : map.dijkstraPathFind(getPosition(), player.getPosition(), this);
             if (!isAdjacentToPlayer && Position.isAdjacent(player.getPosition(), nextPos))
                 isAdjacentToPlayer = true;
+
             map.moveTo(this, nextPos);
-
-        } else if (map.getPlayer().getEffectivePotion() instanceof InvisibilityPotion) {
-            setStrategy(new InvisibilityStrategy());
-        } else if (map.getPlayer().getEffectivePotion() instanceof InvincibilityPotion) {
-            setStrategy(new InvinciblityStrategy());
         } else {
-            // Follow hostile
-            // nextPos = map.dijkstraPathFind(getPosition(), player.getPosition(), this);
-            setStrategy(new DijkstraStrategy());
-        }
-        // map.moveTo(this, nextPos);
-        //getStrategy().perform(game, this);
 
+            if (map.getPlayer().getEffectivePotion() instanceof InvisibilityPotion) {
+                setStrategy(new InvisibilityStrategy());
+
+            } else if (player.getEffectivePotion() instanceof InvincibilityPotion) {
+                setStrategy(new InvincibilityStrategy());
+
+            } else {
+                setStrategy(new DijkstraStrategy());
+            }
+
+            // Perform movement using the selected strategy.
+            getStrategy().performMovement(game, this);
+        }
     }
 
     @Override

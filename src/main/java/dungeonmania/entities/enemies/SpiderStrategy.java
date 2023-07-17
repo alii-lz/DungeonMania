@@ -8,9 +8,9 @@ import dungeonmania.entities.Entity;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class SpiderMove implements MoveStrategy {
+public class SpiderStrategy implements MoveStrategy {
     @Override
-    public void perform(Game game, Enemy enemy) {
+    public void performMovement(Game game, Enemy enemy) {
         GameMap map = game.getMap();
         Spider spider = (Spider) enemy;
 
@@ -26,7 +26,6 @@ public class SpiderMove implements MoveStrategy {
         if (entities == null || entities.size() == 0 || entities.stream().allMatch(e -> e.canMoveOnto(map, spider))) {
             map.moveTo(spider, nextPos);
             spider.updateNextPosition();
-
         }
     }
 }

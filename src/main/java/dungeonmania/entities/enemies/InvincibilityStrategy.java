@@ -5,12 +5,11 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 import dungeonmania.Game;
 
-public class InvinciblityStrategy implements MoveStrategy {
+public class InvincibilityStrategy implements MoveStrategy {
     @Override
-    public void perform(Game game, Enemy enemy) {
+    public void performMovement(Game game, Enemy enemy) {
         GameMap map = game.getMap();
         Position plrDiff = Position.calculatePositionBetween(map.getPlayer().getPosition(), enemy.getPosition());
-
         Position moveX = (plrDiff.getX() >= 0) ? Position.translateBy(enemy.getPosition(), Direction.RIGHT)
                 : Position.translateBy(enemy.getPosition(), Direction.LEFT);
         Position moveY = (plrDiff.getY() >= 0) ? Position.translateBy(enemy.getPosition(), Direction.UP)
