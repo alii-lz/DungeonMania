@@ -7,13 +7,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dungeonmania.entities.Entity;
-import dungeonmania.entities.Overlap;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Switch;
 import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 
-public class Bomb extends Entity implements InventoryItem, Overlap {
+public class Bomb extends Collectable implements InventoryItem {
     public enum State {
         SPAWNED, INVENTORY, PLACED
     }
@@ -36,11 +35,6 @@ public class Bomb extends Entity implements InventoryItem, Overlap {
 
     public void notify(GameMap map) {
         explode(map);
-    }
-
-    @Override
-    public boolean canMoveOnto(GameMap map, Entity entity) {
-        return true;
     }
 
     @Override
