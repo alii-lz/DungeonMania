@@ -38,6 +38,8 @@ public class Game {
     private PriorityQueue<ComparableCallback> sub = new PriorityQueue<>();
     private PriorityQueue<ComparableCallback> addingSub = new PriorityQueue<>();
 
+    private int kills;
+
     public Game(String dungeonName) {
         this.name = dungeonName;
         this.map = new GameMap();
@@ -82,6 +84,7 @@ public class Game {
         }
         if (enemy.getBattleStatistics().getHealth() <= 0) {
             map.destroyEntity(enemy);
+            kills++;
         }
     }
 
@@ -154,6 +157,10 @@ public class Game {
         sub = nextTickSub;
         tickCount++;
         return tickCount;
+    }
+
+    public int getKills() {
+        return kills;
     }
 
     public int getTick() {
