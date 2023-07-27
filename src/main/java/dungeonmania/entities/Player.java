@@ -175,4 +175,16 @@ public class Player extends Entity implements Battleable, Overlap {
         return origin;
     }
 
+    public <T> List<T> getEntitiesFromInventory(Class<T> clazz) {
+        return inventory.getEntities(clazz);
+    }
+
+    public double getHealthFromBattleStatistics() {
+        return battleStatistics.getHealth();
+    }
+
+    public void setHealthFromBattleStatistics(double health) {
+        this.battleStatistics.setHealth(health);
+    }
+
 }

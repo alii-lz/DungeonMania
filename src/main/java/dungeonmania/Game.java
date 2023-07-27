@@ -210,4 +210,8 @@ public class Game {
     public BattleFacade getBattleFacade() {
         return battleFacade;
     }
+
+    public <T extends Entity> List<T> getEntitiesFromMap(Class<T> clazz) {
+        return map.getEntities(clazz);
+    }
 }

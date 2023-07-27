@@ -53,4 +53,13 @@ public abstract class Enemy extends Entity implements Battleable, Overlap, Destr
     public void setStrategy(MoveStrategy strategy) {
         this.strategy = strategy;
     }
+
+    public double getHealthFromBattleStatistics() {
+        return battleStatistics.getHealth();
+    }
+
+    public void setHealthFromBattleStatistics(double health) {
+        this.battleStatistics.setHealth(health);
+    }
+
 }
