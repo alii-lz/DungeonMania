@@ -50,7 +50,7 @@ public class Mercenary extends Enemy implements Interactable {
      * @param player
      * @return
      */
-    private boolean canBeBribed(Player player) {
+    protected boolean canBeBribed(Player player) {
         return bribeRadius >= 0 && player.countEntityOfType(Treasure.class) >= bribeAmount;
     }
 
