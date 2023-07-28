@@ -44,8 +44,13 @@ public class Spider extends Enemy {
 
     @Override
     public void move(Game game) {
-        setStrategy(new SpiderStrategy());
-        getStrategy().performMovement(game, this);
+
+        if (getSwampTileTime() > 0) {
+            setSwampTileTime(getSwampTileTime() - 1);
+        } else {
+            setStrategy(new SpiderStrategy());
+            getStrategy().performMovement(game, this);
+        }
     }
 
     public List<Position> getMovementTrajectory() {

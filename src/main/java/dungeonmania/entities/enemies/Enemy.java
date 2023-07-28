@@ -13,11 +13,13 @@ import dungeonmania.util.Position;
 public abstract class Enemy extends Entity implements Battleable, Overlap, Destroy {
     private BattleStatistics battleStatistics;
     private MoveStrategy strategy;
+    private int swampTileTime;
 
     public Enemy(Position position, double health, double attack) {
         super(position.asLayer(Entity.CHARACTER_LAYER));
         battleStatistics = new BattleStatistics(health, attack, 0, BattleStatistics.DEFAULT_DAMAGE_MAGNIFIER,
                 BattleStatistics.DEFAULT_ENEMY_DAMAGE_REDUCER);
+        this.swampTileTime = 0;
     }
 
     @Override
@@ -60,6 +62,14 @@ public abstract class Enemy extends Entity implements Battleable, Overlap, Destr
 
     public void setHealthFromBattleStatistics(double health) {
         this.battleStatistics.setHealth(health);
+    }
+
+    public int getSwampTileTime() {
+        return swampTileTime;
+    }
+
+    public void setSwampTileTime(int swampTileTime) {
+        this.swampTileTime = swampTileTime;
     }
 
 }

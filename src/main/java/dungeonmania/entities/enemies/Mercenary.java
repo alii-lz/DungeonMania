@@ -85,6 +85,8 @@ public class Mercenary extends Enemy implements Interactable {
                 isAdjacentToPlayer = true;
 
             map.moveTo(this, nextPos);
+        } else if (getSwampTileTime() > 0) {
+            setSwampTileTime(getSwampTileTime() - 1);
         } else {
 
             if (map.getPlayer().getEffectivePotion() instanceof InvisibilityPotion) {
