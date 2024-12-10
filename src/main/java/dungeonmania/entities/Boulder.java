@@ -32,6 +32,7 @@ public class Boulder extends Entity implements Overlap {
             if (!e.canMoveOnto(map, this))
                 return false;
         }
+        
         return true;
     }
 

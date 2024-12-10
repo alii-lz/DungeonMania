@@ -12,4 +12,6 @@ if [ $percent -lt 80 ]
 then
   >&2 echo 'Test coverage is less then 80%'
   exit 1
+
+  
 fi

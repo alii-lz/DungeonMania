@@ -88,3 +88,5 @@ jacocoTestReport {
 
     dependsOn test
 }
+
+// gradle build
